@@ -2,7 +2,13 @@ nodes = {}
 roots = []
 
 class Node:
-<<<<<<< HEAD
+
+  def __init__(self, id, name, context = "", category = "", timeframe = "", todays_goal = False):
+    self.children = []
+    self.id = id 
+    self.name = name
+    self.context = context
+
   def __init__(self, id, name, context = "", category = "", timeframe = "", todays_goal = False):
     self.children = []
     self.id = id 
@@ -13,24 +19,29 @@ class Node:
     self.todays_goal = todays_goal
     self.completed = False
 
-  def add_child(self, child):
-      self.children.append(child)
-=======
-    def __init__(self, id, name, context="", category="Personal", timeframe="Short Term", todays_goal=False, percent_completed=0):
+  class Node:
+    def __init__(
+        self,
+        id,
+        name,
+        context=None,
+        category=None,
+        timeframe=None,
+        todays_goal=False
+    ):
+      self.children = []
       self.id = id 
       self.name = name
-      self.children = []
-      self.parent = None
       self.context = context
       self.category = category
       self.timeframe = timeframe
       self.todays_goal = todays_goal
-      self.percent_completed = percent_completed
+      self.completed = False
 
     def add_child(self, child):
         self.children.append(child)
         child.parent = self
->>>>>>> 11a895e0be722d480dffd5871654b2f66fe0abd2
+
 
   def PrintTree(self, level=0):
     print("   " * level + self.name + " " + f"{self.id}")
@@ -116,7 +127,7 @@ def make_sample_goals():
 # # Tree 2: Personal Goals
 # personal = Node(13, "Personal Goals")
 
-<<<<<<< HEAD
+
 # # Level 2
 # fitness = Node(14, "Improve Fitness")
 # organization = Node(15, "Get Organized")
@@ -161,7 +172,7 @@ def make_sample_goals():
 
 # print("Tree 2: Personal Goals")
 # personal.PrintTree()
-=======
+
 print("Tree 2: Personal Goals")
 personal.PrintTree()
 
@@ -177,4 +188,4 @@ roots.append(school)
 roots.append(personal)
 register_tree(school)
 register_tree(personal)
->>>>>>> 11a895e0be722d480dffd5871654b2f66fe0abd2
+
