@@ -5,6 +5,7 @@ class Node:
     self.id = Node.next_id
     Node.next_id += 1
     self.children = []
+    self.parent=None
     self.name = name
     self.context = context
     self.category = category
@@ -18,6 +19,19 @@ class Node:
     new_node.parent = self
     self.children.append(new_node)
     return new_node
+
+  
+  def find_node(self, node_id):
+      if self.id == node_id:
+          return self
+
+      for child in self.children:
+          result = child.find_node(node_id)
+          if result is not None:
+              return result
+      return None
+
+
 
   def print_tree(self, level=0):
     print("   " * level + self.name + " " + f"{self.id}")
@@ -134,13 +148,3 @@ def make_sample_goals():
 
 # print("Tree 2: Personal Goals")
 # personal.PrintTree()
-
-goals = make_sample_goals()
-
-school = goals["Get on top of School"]
-
-midterm = school.add_child("Prepare for Midterm")
-midterm.add_child("Study Pumping Lemma")
-midterm.add_child("Practice Questions")
-
-school.printTree()
