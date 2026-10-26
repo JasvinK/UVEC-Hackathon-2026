@@ -26,17 +26,20 @@ st.divider()
 # Create 3 columns so the stats appear side by side
 col1, col2, col3 = st.columns(3)
 
+# get list of completed goals
+done_goals = [key for key in st.session_state.goals if key["done"] >= key["total"]]
+
 with col1:
     # Number of goals the user has completed
-    st.metric("Goals Achieved", "3")
+    st.metric("Goals Achieved", len(done_goals))
 
 with col2:
     # Total number of goals the user has created
-    st.metric("Total Goals", "10")
+    st.metric("Total Goals", len(st.session_state.goals))
 
 with col3:
     # Points earned from completing tasks/goals
-    st.metric("Points", "300")
+    st.metric("Points", len(done_goals) * 100)
 
 
 st.divider()
@@ -44,13 +47,16 @@ st.divider()
 
 # ---------------- OVERALL PROGRESS ----------------
 
-st.subheader("Overall Goal Progress")
+st.subheader("Overall Weekly Goal Progress")
 
-# Temporary progress value
-# 30 means 30%
-st.progress(30)
+total_done = sum(g["done"] for g in st.session_state.goals)
+total_total = sum(g["total"] for g in st.session_state.goals)
 
-st.caption("30% of your goals completed")
+if total_total > 0:
+    progress = total_done / total_total
+    st.progress(progress, text=f"{total_done}/{total_total} completed ({progress:.0%}) (Keep going!)")
+else:
+    st.info("Add a goal to start tracking progress.")
 
 
 st.divider()
@@ -61,13 +67,16 @@ st.divider()
 st.subheader("Achievements")
 
 # Temporary achievements for now
-st.write("🏆 First Goal — Completed your first goal")
-st.write("⭐ Small Wins — Completed 5 tasks")
-st.write("🌱 Back On Track — Returned to a paused goal")
+st.write("First Goal: Completed your first goal")
+st.write("Small Wins: Completed 5 tasks")
+st.write("Back On Track: Returned to a paused goal")
 
 
 st.divider()
 
+# ---------------- Raw Json ----------------
+st.write("raw json")
+st.write(st.session_state.goals)
 
 # ---------------- SETTINGS ----------------
 
