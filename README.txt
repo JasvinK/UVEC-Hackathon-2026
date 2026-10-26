@@ -1,0 +1,1 @@
+Backend: The Plan was to have a tree representation for the goals but unfortunatley we ran out of time and used a json file instead that has no hierarchy 
